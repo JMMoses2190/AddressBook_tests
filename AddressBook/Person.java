@@ -33,6 +33,16 @@ public class Person {
             throw new IllegalArgumentException("First name cannot be empty");
         if (lastName == null || lastName.isEmpty())
             throw new IllegalArgumentException("Last name cannot be empty");
+        if (address == null || address.isEmpty())
+            throw new IllegalArgumentException("Address cannot be empty");
+        if (city == null || city.isEmpty())
+            throw new IllegalArgumentException("City cannot be empty");
+        if (state == null || state.isEmpty())
+            throw new IllegalArgumentException("State cannot be empty");
+        if (zip == null || zip.isEmpty())
+            throw new IllegalArgumentException("Zip cannot be empty");
+        if (phone == null || phone.isEmpty())
+            throw new IllegalArgumentException("Phone cannot be empty");
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
