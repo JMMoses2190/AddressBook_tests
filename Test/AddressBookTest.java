@@ -13,7 +13,7 @@ import AddressBook.*;
 class AddressBookTest {
 
   private AddressBook bookStub;
-  private Person personStub;
+
 
   private AddressBook bookMock = new AddressBook();
   private Person personMock = mock(Person.class);
@@ -25,17 +25,15 @@ class AddressBookTest {
   @BeforeEach
   public void setUp() {
     bookStub = mock(AddressBook.class);
-    personStub = new Person("test", "person", "street", "city",
-        "state", "num", "phone");
 
 
   }
 
 
   @Test
-  void addStub() {
-    bookStub.add(personStub);
-    Assertions.assertEquals(personStub.getFirstName(), "test");
+  void addToStub() {
+    bookStub.add(personTest);
+    Assertions.assertEquals(personTest.getFirstName(), "test");
   }
 
   @Test
@@ -79,19 +77,19 @@ class AddressBookTest {
   }
 
   @Test
-  void getColumnCount(){
+  void getColumnCount() {
     bookTest.getColumnCount();
   }
 
   @Test
-  void getValueAt(){
+  void getValueAt() {
     bookTest.add(personTest);
-    bookTest.getValueAt(0,0);
+    bookTest.getValueAt(0, 0);
 
   }
 
   @Test
-  void getColumnName(){
+  void getColumnName() {
     bookTest.getColumnName(0);
   }
 
