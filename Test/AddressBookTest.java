@@ -1,12 +1,17 @@
 package Test;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
 import AddressBook.AddressBook;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import java.util.List;
+import java.util.ArrayList;
 
 import AddressBook.*;
 
@@ -47,14 +52,17 @@ class AddressBookTest {
   void getPersons() {
     AddressBook getTest = new AddressBook();
     Person[] result = getTest.getPersons();
-
-
+    assertArrayEquals(result, getTest.getPersons());
   }
 
   @Test
   void set() {
-    bookTest.add(personTest);
-    bookTest.set(0, personTest);
+
+    AddressBook setTest = new AddressBook();
+    setTest.add(personTest);
+    assertEquals(setTest.get(0), personTest);
+    setTest.set(0, null);
+    assertEquals(setTest.get(0), null);
 
   }
 
@@ -62,6 +70,7 @@ class AddressBookTest {
   void get() {
     bookTest.add(personTest);
     bookTest.get(0);
+    assertEquals(personTest, bookTest.get(0));
 
   }
 
@@ -69,28 +78,36 @@ class AddressBookTest {
   void clear() {
     bookTest.add(personTest);
     bookTest.clear();
+    assertEquals(bookTest.getRowCount(), 0);
   }
 
   @Test
   void getRowCount() {
-    bookTest.getRowCount();
+    int rows = bookTest.getRowCount();
+    assertEquals(rows, bookTest.getRowCount());
   }
 
   @Test
   void getColumnCount() {
-    bookTest.getColumnCount();
+    int columns = bookTest.getColumnCount();
+    assertEquals(columns, bookTest.getColumnCount());
   }
 
   @Test
   void getValueAt() {
     bookTest.add(personTest);
-    bookTest.getValueAt(0, 0);
+
+    assertEquals(bookTest.getValueAt(0, 0), personTest.getLastName());
+
 
   }
 
   @Test
   void getColumnName() {
-    bookTest.getColumnName(0);
+    String colName = bookTest.getColumnName(0);
+
+    assertEquals(colName, bookTest.getColumnName(0));
+
   }
 
 

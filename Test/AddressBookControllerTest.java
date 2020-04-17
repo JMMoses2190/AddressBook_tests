@@ -75,6 +75,44 @@ class AddressBookControllerTest {
   }
 
   @Test
+  void openTime() throws FileNotFoundException, SQLException {
+
+    long startTime = System.nanoTime();
+    long endTime=0;
+
+    Throwable exception = assertThrows(FileNotFoundException.class, ()-> {
+      throw new FileNotFoundException("FileNotFound");
+    });
+
+    Throwable exception2 = assertThrows(SQLException.class, () -> {
+      throw new SQLException("SQL Exception");
+    });
+
+    File fileTest = new File("Book Test");
+    new FileSystem().saveFile(bookTest, fileTest);
+    controllerTest.open(new File("Book Test"));
+
+    boolean canReadTest = fileTest.canRead();
+
+    assertEquals("SQL Exception", exception2.getMessage());
+    assertEquals("FileNotFound", exception.getMessage());
+
+    if(canReadTest == true){
+      endTime = System.nanoTime();
+    }
+    long timeElapsed = endTime - startTime;
+
+    double seconds = (double)timeElapsed/1000000000.0;
+    boolean testPassed = false;
+    if(seconds<=5.0){
+      testPassed = true;
+    }
+
+    assertTrue(testPassed);
+
+  }
+
+  @Test
   void open() throws FileNotFoundException, SQLException {
 
     Throwable exception = assertThrows(FileNotFoundException.class, ()-> {
@@ -112,6 +150,8 @@ class AddressBookControllerTest {
     assertTrue(existTest);
 
   }
+
+
 
   @Test
   void getModel() {
