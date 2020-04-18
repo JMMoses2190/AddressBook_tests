@@ -2,31 +2,29 @@ package Test;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
 import AddressBook.AddressBook;
+import AddressBook.Person;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.util.List;
-import java.util.ArrayList;
-
-import AddressBook.*;
 
 class AddressBookTest {
 
+  //Creating the stub
   private AddressBook bookStub;
 
-
+  //Creating the mocks
   private AddressBook bookMock = new AddressBook();
   private Person personMock = mock(Person.class);
 
+  //Initializing the Unit testing objects
   private AddressBook bookTest = new AddressBook();
   private Person personTest = new Person("test", "person", "street", "city",
       "state", "num", "phone");
 
+  //Initializing the stub
   @BeforeEach
   public void setUp() {
     bookStub = mock(AddressBook.class);
@@ -35,12 +33,14 @@ class AddressBookTest {
   }
 
 
+  //Using a stub to test if a person is added correctly
   @Test
   void addToStub() {
     bookStub.add(personTest);
     Assertions.assertEquals(personTest.getFirstName(), "test");
   }
 
+  //Using a Mock to test that removing a person
   @Test
   void removeMock() {
     bookMock.add(personMock);
@@ -48,6 +48,7 @@ class AddressBookTest {
     assertEquals(bookMock.getRowCount(), 0);
   }
 
+  //Testing that retrieving a person
   @Test
   void getPersons() {
     AddressBook getTest = new AddressBook();
@@ -55,6 +56,7 @@ class AddressBookTest {
     assertArrayEquals(result, getTest.getPersons());
   }
 
+  //Testing that person is properly set to a specific index location
   @Test
   void set() {
 
@@ -66,6 +68,7 @@ class AddressBookTest {
 
   }
 
+  //Testing that a specific person is retrieved from an index
   @Test
   void get() {
     bookTest.add(personTest);
@@ -74,6 +77,7 @@ class AddressBookTest {
 
   }
 
+  //Testing that a person is deleted properly
   @Test
   void clear() {
     bookTest.add(personTest);
@@ -81,18 +85,21 @@ class AddressBookTest {
     assertEquals(bookTest.getRowCount(), 0);
   }
 
+  //Testing the row count can be properly returned
   @Test
   void getRowCount() {
     int rows = bookTest.getRowCount();
     assertEquals(rows, bookTest.getRowCount());
   }
 
+  //Testing the column count is properly returned
   @Test
   void getColumnCount() {
     int columns = bookTest.getColumnCount();
     assertEquals(columns, bookTest.getColumnCount());
   }
 
+  //Testing that a value at a specific index is returned
   @Test
   void getValueAt() {
     bookTest.add(personTest);
@@ -102,6 +109,7 @@ class AddressBookTest {
 
   }
 
+  //Testing that the column name is correctly recieved
   @Test
   void getColumnName() {
     String colName = bookTest.getColumnName(0);

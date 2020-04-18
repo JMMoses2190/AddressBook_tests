@@ -1,8 +1,13 @@
 package Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import AddressBook.AddressBook;
+import AddressBook.AddressBookController;
+import AddressBook.FileSystem;
+import AddressBook.Person;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
@@ -10,12 +15,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 
-import AddressBook.*;
-
-
-
 class AddressBookControllerTest {
 
+  //Initialize Unit testing objects
   AddressBook bookTest = new AddressBook();
   AddressBookController controllerTest = new AddressBookController(bookTest);
   Person personTest = new Person("test", "person", "street", "city",
@@ -23,12 +25,15 @@ class AddressBookControllerTest {
   Person personTest2 = new Person("Jordan", "Moses", "street coastal",
       "Estero", "Florida", "33967", "12345");
 
+
+  //Testing that person is properly added to a book
   @Test
   void add() {
     controllerTest.add(personTest);
     Assertions.assertEquals(personTest, controllerTest.get(0));
   }
 
+  //Testing that a person is specifically set to given index
   @Test
   void set() {
     controllerTest.add(personTest2);
@@ -44,6 +49,7 @@ class AddressBookControllerTest {
     Assertions.assertEquals(personTest2, controllerTest.get(1));
   }
 
+  //Testing that a person can be properly removed from book
   @Test
   void remove() {
     controllerTest.add(personTest);
@@ -54,6 +60,7 @@ class AddressBookControllerTest {
 
   }
 
+  //Test that a person can be retrieved from a given index
   @Test
   void get() {
     controllerTest.add(personTest);
@@ -63,6 +70,7 @@ class AddressBookControllerTest {
     Assertions.assertEquals(personTest, controllerTest.get(0));
   }
 
+  //Test that an address book can be cleared
   @Test
   void clear() {
     controllerTest.add(personTest);
@@ -74,13 +82,14 @@ class AddressBookControllerTest {
     assertEquals(0, bookTest.getRowCount());
   }
 
+  //Test that time to open is less than 5 seconds
   @Test
-  void openTime() throws FileNotFoundException, SQLException {
-
+  void timeToOpen() throws FileNotFoundException, SQLException {
+    //Start timing the process
     long startTime = System.nanoTime();
-    long endTime=0;
+    long endTime = 0;
 
-    Throwable exception = assertThrows(FileNotFoundException.class, ()-> {
+    Throwable exception = assertThrows(FileNotFoundException.class, () -> {
       throw new FileNotFoundException("FileNotFound");
     });
 
@@ -97,14 +106,19 @@ class AddressBookControllerTest {
     assertEquals("SQL Exception", exception2.getMessage());
     assertEquals("FileNotFound", exception.getMessage());
 
-    if(canReadTest == true){
+    //If process completes successfully then set ending time
+    if (canReadTest == true) {
       endTime = System.nanoTime();
     }
-    long timeElapsed = endTime - startTime;
 
-    double seconds = (double)timeElapsed/1000000000.0;
+    //Calculate how long it too and convert to seconds from nanoseconds
+    long timeElapsed = endTime - startTime;
+    double seconds = (double) timeElapsed / 1000000000.0;
+
     boolean testPassed = false;
-    if(seconds<=5.0){
+
+    //If the time is less than required 5 seconds then the test will pass
+    if (seconds <= 5.0) {
       testPassed = true;
     }
 
@@ -112,10 +126,11 @@ class AddressBookControllerTest {
 
   }
 
+  //Testing tha file can be properly opened
   @Test
   void open() throws FileNotFoundException, SQLException {
 
-    Throwable exception = assertThrows(FileNotFoundException.class, ()-> {
+    Throwable exception = assertThrows(FileNotFoundException.class, () -> {
       throw new FileNotFoundException("FileNotFound");
     });
 
@@ -135,6 +150,8 @@ class AddressBookControllerTest {
 
   }
 
+
+  //Testing that a file can be properly saved
   @Test
   void save() throws SQLException {
 
@@ -151,12 +168,5 @@ class AddressBookControllerTest {
 
   }
 
-
-
-  @Test
-  void getModel() {
-
-    Assertions.assertEquals(bookTest, controllerTest.getModel());
-
-  }
+  
 }

@@ -1,7 +1,10 @@
 package GUI;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Component;
+import java.awt.Container;
+import javax.swing.JPanel;
+import javax.swing.Spring;
+import javax.swing.SpringLayout;
 
 /*
  * Copyright (c) 1995, 2008, Oracle and/or its affiliates. All rights reserved.

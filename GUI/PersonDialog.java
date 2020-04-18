@@ -2,10 +2,15 @@ package GUI;
 
 import AddressBook.Person;
 import com.sun.istack.internal.Nullable;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Frame;
 import java.util.concurrent.atomic.AtomicReference;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SpringLayout;
 
 
 public class PersonDialog extends JDialog {
