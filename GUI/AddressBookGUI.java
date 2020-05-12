@@ -1,9 +1,8 @@
 package GUI;
 
-import AddressBook.AddressBook;
+import AddressBook.*;
 import AddressBook.AddressBookController;
 import AddressBook.FileSystem;
-import AddressBook.Person;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
@@ -173,6 +172,8 @@ public class AddressBookGUI extends JFrame {
             public void removeUpdate(DocumentEvent e) {
                 filter();
             }
+
+
 
             @Override
             public void changedUpdate(DocumentEvent e) {

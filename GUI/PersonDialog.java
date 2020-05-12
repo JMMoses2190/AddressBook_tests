@@ -8,6 +8,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
@@ -93,8 +94,32 @@ public class PersonDialog extends JDialog {
         okButton.setMnemonic('O');
         okButton.addActionListener(e ->
         {
-            result = Result.OK;
-            setVisible(false);
+            boolean fNameValid = firstName.getText().matches("^[a-zA-Z]*$");
+            boolean lNameValid = lastName.getText().matches("^[a-zA-Z]*$");
+            boolean phoneValid = phone.getText().matches("[0-9]+") &&
+                phone.getText().length() == 10;
+            boolean zipValid = zip.getText().matches("[0-9]+") &&
+                zip.getText().length() == 5;
+            if(zipValid && fNameValid && lNameValid && phoneValid) {
+                result = Result.OK;
+                setVisible(false);
+            }else {
+                String fix = "\n";
+                if (!fNameValid) {
+                    fix += "First Name\n";
+                }
+                if (!lNameValid) {
+                    fix += "Last Name\n";
+                }
+                if (!phoneValid) {
+                    fix += "Phone\n";
+                }
+                if (!zipValid) {
+                    fix += "Zip\n";
+                }
+                JOptionPane.showMessageDialog(null, "The following fields "
+                    + "have invalid inputs: " + fix);
+            }
         });
         buttons.add(okButton);
         JButton cancelButton = new JButton("Cancel");
@@ -114,6 +139,7 @@ public class PersonDialog extends JDialog {
         setModalityType(ModalityType.DOCUMENT_MODAL);
         setLocation((parent.getWidth() - getWidth()) / 2, (parent.getHeight() - getHeight()) / 2);
     }
+
 
   
     public PersonDialog(Frame parent, @Nullable Person person) {

@@ -12,41 +12,12 @@ import org.junit.jupiter.api.Test;
 
 class AddressBookTest {
 
-  //Creating the stub
-  private AddressBook bookStub;
-
-  //Creating the mocks
-  private AddressBook bookMock = new AddressBook();
-  private Person personMock = mock(Person.class);
 
   //Initializing the Unit testing objects
   private AddressBook bookTest = new AddressBook();
   private Person personTest = new Person("test", "person", "street", "city",
       "state", "num", "phone");
 
-  //Initializing the stub
-  @BeforeEach
-  public void setUp() {
-    bookStub = mock(AddressBook.class);
-
-
-  }
-
-
-  //Using a stub to test if a person is added correctly
-  @Test
-  void addToStub() {
-    bookStub.add(personTest);
-    Assertions.assertEquals(personTest.getFirstName(), "test");
-  }
-
-  //Using a Mock to test that removing a person
-  @Test
-  void removeMock() {
-    bookMock.add(personMock);
-    bookMock.remove(0);
-    assertEquals(bookMock.getRowCount(), 0);
-  }
 
   //Testing that retrieving a person
   @Test
